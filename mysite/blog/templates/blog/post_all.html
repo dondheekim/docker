@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}post_all.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
+<h1>blog list</h1>  <!--별도의 태그가 없으면 장고는 body로 간주 -->
+<table cellspacing=1 width=700 border=5>
+    <tr>
+        <td width=50><p align=center>번호</p></td>
+        <td width=300><p align=center>제목</p></td>
+        <td width=200><p align=center>등록일</p></td>
+        <td width=100><p align=center>slug</p></td>
+    </tr>
+<ul>
+{% for post in posts %}
+<tr>
+  <td width=50><p align=center>{{ post.id }}</p></td>
+  <td width=100><p align=center><h2><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h2></p></td>
+  <td width=100><p align=center>{{ post.modify_date|date:"N d, Y" }}</p></td>
+  <td width=100><p align=center>{{ post.description }}</p></td>
+</tr>
+{% endfor %}
+</ul>
+</table>
+&nbsp
+<div>
+  <span> <!--span 태그 내의 요소들은 같은 줄에 배치. 페이징을 위한 줄-->
+    {% if page_obj.has_previous %} <!--page_obj는 장고의 page 객체가 들어있는 컨텍스크 변수. 현재 페이지를 기준으로 이전 페이지가 있는지 확인 -->
+      <a href="?page={{ page_obj.previous_page_number }}">Previous Page</a>
+    {% endif %}
+
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}

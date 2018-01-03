@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
+
+<h1>Post Archives until {% now "N d, Y" %}</h1>  <!--별도의 태그가 없으면 장고는 body로 간주 -->
+<ul>
+  {% for date in date_list %}
+  <li style = "display: inline;">
+    <a href="{% url 'blog:post_year_archive' date|date:'Y' %}" > Year-{{ date|date:"Y" }} </a></li>
+{% endfor %}
+</ul>
+<br/>
+
+<div>
+  <ul> <!--span 태그 내의 요소들은 같은 줄에 배치. 페이징을 위한 줄-->
+    {% for post in object_list %} <!--page_obj는 장고의 page 객체가 들어있는 컨텍스크 변수. 현재 페이지를 기준으로 이전 페이지가 있는지 확인 -->
+      <li>{{ post.modify_date|date:"Y-m-d" }}&nbsp&nbsp&nbsp;
+        <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
+<table cellspacing=1 width=500 border=5>
+  <tr>
+    <td width=50><p align=center><h2>{{ object.title }}</p></h2></td>  <!--별도의 태그가 없으면 장고는 body로 간주 -->
+  </tr>
+<div class = "body">
+<tr>
+ <td> {{ object.content|linebreaks }}</td>
+</tr>
+</br>
+</table>
+<p class="other_posts">
+  {% if object.get_previous_by_modify_date %}
+  <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post"> &laquo;--{{ object.get_previous_post }}</a>
+{% endif %}
+
+    {% if object.get_next_by_modify_date %} <!--page_obj는 장고의 page 객체가 들어있는 컨텍스크 변수. 현재 페이지를 기준으로 이전 페이지가 있는지 확인 -->
+    |  <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post"> {{ object.get_next_post }} --&raquo;</a>
+    {% endif %}
+  </p>
+  <p class = "date">{{ object.modify_date|date:"j F Y" }}</p> <!--object.modify_date|date를 j F Y 형식으로 출력 -->
+</br>
+<hr>
+
+
+<a class="btn btn-default" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">Add comment</a>
+{% for comment in post.comments.all %}
+    {% if user.is_authenticated or comment.approved_comment %}
+    <div class="comment">
+        <div class="date">
+            {{ comment.created_date }}
+            {% if not comment.approved_comment %}
+                <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+            {% endif %}
+        </div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.text|linebreaks }}</p>
+    </div>
+    {% endif %}
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+ FROM python:3
+ ENV PYTHONUNBUFFERED 1
+ RUN mkdir /code
+ WORKDIR /code
+ ADD requirements.txt /code/
+ RUN pip install -r requirements.txt
+ ADD . /code/
+
+version: '3'
+
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: sudo /home1/irteam/apps/httpd/bin/httpd -k restart
+    volumes:
+      - .:/code
+    ports:
+      - "80:80"
+    depends_on:
+      - db
