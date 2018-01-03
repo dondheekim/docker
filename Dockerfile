@@ -1,1 +1,1 @@
-FROM centos:7.2.1511
+FROM ubuntu:14.04
