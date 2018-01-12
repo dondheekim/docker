@@ -74,6 +74,13 @@ RUN cd /home1/irteam/apps/apache/bin\
 USER irteam
 RUN /home1/irteam/apps/apache/bin/apachectl start
 
+###tomcat 설치
+USER irteam
+RUN cd /home1/irteam/apps\
+&& wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz\
+&& tar xvzf apache-tomcat-8.5.24.tar.gz\
+&& ln -s apache-tomcat-8.5.24 tomcat\
+
 ### django 설치
 USER irteamsu
 RUN sudo yum install -y xz xz-devel python-tools python3-tkinter
@@ -92,12 +99,12 @@ RUN cd ~/apps\
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN source ~/.bashrc
 
-USER irteam
-RUN cd ~/apps\
-&& pip install mod_wsgi\
-&& cd /home1/irteam/apps/devoops/lib/python3.5/site-packages/mod_wsgi/server\
-&& cp mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so /home1/irteam/apps/httpd/modules/mod_wsgi.so\
-RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
+###USER irteam
+#RUN cd ~/apps\
+#&& pip install mod_wsgi\
+#&& cd /home1/irteam/apps/devoops/lib/python3.5/site-packages/mod_wsgi/server\
+#&& cp mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so /home1/irteam/apps/httpd/modules/mod_wsgi.so\
+#RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 EXPOSE 80
 EXPOSE 443
