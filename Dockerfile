@@ -1,6 +1,6 @@
 # centOS 7 설치
 FROM centos
-MAINTAINER donghee <heeya.kim@navercorp.com>
+MAINTAINER donghee kim <heeya.kim@navercorp.com>
 
 ### 의존 패키지 설치
 USER root
