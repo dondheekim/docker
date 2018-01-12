@@ -2,9 +2,12 @@
 FROM centos
 MAINTAINER donghee kim <heeya.kim@navercorp.com>
 
+
 ### 의존 패키지 설치
 USER root
-RUN yum install -y epel-release wget net-tools tree sudo gcc gcc-c++ libtool
+RUN yum install -y epel-release wget
+RUN yum install -y net-tools tree sudo
+RUN yum install -y gcc gcc-c++ libtool
 
 ### 초기 설정
 RUN mkdir /home1
@@ -74,13 +77,6 @@ RUN cd /home1/irteam/apps/apache/bin\
 USER irteam
 RUN /home1/irteam/apps/apache/bin/apachectl start
 
-###tomcat 설치
-USER irteam
-RUN cd /home1/irteam/apps\
-&& wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz\
-&& tar xvzf apache-tomcat-8.5.24.tar.gz\
-&& ln -s apache-tomcat-8.5.24 tomcat\
-
 ### django 설치
 USER irteamsu
 RUN sudo yum install -y xz xz-devel python-tools python3-tkinter
@@ -99,15 +95,15 @@ RUN cd ~/apps\
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN source ~/.bashrc
 
-#USER irteam
-#RUN cd ~/apps\
-#&& wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
-#&& tar xvzf mod_wsgi-4.4.21.tar.gz\
-#&& cd mod_wsgi-4.4.21\
-#&& ./configure --with-apxs=/home1/irteam/apps/apache/bin/apxs\
-#&& make\
-#&& make install
-#RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
+USER irteam
+RUN cd ~/apps\
+&& wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
+&& tar xvzf mod_wsgi-4.4.21.tar.gz\
+&& cd mod_wsgi-4.4.21\
+&& ./configure --with-apxs=/home1/irteam/apps/apache/bin/apxs\
+&& make\
+&& make install
+RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 EXPOSE 80
 EXPOSE 443
