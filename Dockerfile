@@ -1,6 +1,6 @@
 # centOS 7 설치
 FROM centos
-MAINTAINER donghee <heeya.kim@navercorp.com>
+MAINTAINER donghee kim <heeya.kim@navercorp.com>
 
 ### 의존 패키지 설치
 USER root
@@ -30,7 +30,6 @@ RUN echo 'export LANG=ko_KR.UTF-8' >> ~/.bashrc
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc 
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/tomcat/lib/native/lib:$LD_LIBRARY_PATH' >> ~/.bashrc 
 RUN source ~/.bashrc
-
 
 EXPOSE 80
 EXPOSE 443
