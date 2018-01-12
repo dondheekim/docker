@@ -99,8 +99,5 @@ RUN cd ~/apps\
 && cp mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so /home1/irteam/apps/httpd/modules/mod_wsgi.so\
 RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
 
-
-
-
 EXPOSE 80
 EXPOSE 443
