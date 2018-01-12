@@ -99,12 +99,15 @@ RUN cd ~/apps\
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN source ~/.bashrc
 
-###USER irteam
-#RUN cd ~/apps\
-#&& pip install mod_wsgi\
-#&& cd /home1/irteam/apps/devoops/lib/python3.5/site-packages/mod_wsgi/server\
-#&& cp mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so /home1/irteam/apps/httpd/modules/mod_wsgi.so\
-#RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
+USER irteam
+RUN cd ~/apps\
+&& wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
+&& tar xvzf mod_wsgi-4.4.21.tar.gz\
+&& cd mod_wsgi-4.4.21\
+&& ./configure --with-apxs=/home1/irteam/apps/apache/bin/apxs\
+&& make\
+&& make install
+RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 EXPOSE 80
 EXPOSE 443
