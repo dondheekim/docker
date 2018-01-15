@@ -41,29 +41,29 @@ RUN sudo yum install -y gcc expat-devel iptables
 # && sudo iptables -A INPUT -i docker0 -j ACCEPT
 
 USER irteam
-RUN cd ~/apps\
-RUN wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz\
-RUN wget http://mirror.apache-kr.org//apr/apr-1.6.3.tar.gz\
-RUN wget http://mirror.apache-kr.org//apr/apr-util-1.6.1.tar.gz\
-RUN wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz\
-RUN wget http://downloads.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz\
-RUN tar xvzf httpd-2.4.29.tar.gz\
-RUN tar xvzf apr-1.6.3.tar.gz\
-RUN tar xvzf apr-util-1.6.1.tar.gz\
-RUN tar xvzf apr-iconv-1.2.2.tar.gz\
-RUN tar xvzf pcre-8.41.tar.gz\ 
-RUN ln -s apr-1.6.3 apr\
-RUN ln -s apr-iconv-1.2.2 apr-iconv\
-RUN ln -s apr-util-1.6.1 apr-util\
-RUN mv apr-1.6.3 ./httpd-2.4.29/srclib/apr\
-RUN mv apr-util-1.6.1 ./httpd-2.4.29/srclib/apr-util\
-RUN mkdir pcre\
-RUN cd pcre-8.41\
-RUN ./configure --prefix=/home1/irteam/apps/pcre\
-RUN cd /home1/irteam/apps/httpd-2.4.29\
-RUN ./configure --prefix=/home1/irteam/apps/apache-2.4.29\
-RUN make && make install\
-RUN cd /home1/irteam/apps\
+RUN cd ~/apps
+RUN wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz
+RUN wget http://mirror.apache-kr.org//apr/apr-1.6.3.tar.gz
+RUN wget http://mirror.apache-kr.org//apr/apr-util-1.6.1.tar.gz
+RUN wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz
+RUN wget http://downloads.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz
+RUN tar xvzf httpd-2.4.29.tar.gz
+RUN tar xvzf apr-1.6.3.tar.gz
+RUN tar xvzf apr-util-1.6.1.tar.gz
+RUN tar xvzf apr-iconv-1.2.2.tar.gz
+RUN tar xvzf pcre-8.41.tar.gz
+RUN ln -s apr-1.6.3 apr
+RUN ln -s apr-iconv-1.2.2 apr-iconv
+RUN ln -s apr-util-1.6.1 apr-util
+RUN mv apr-1.6.3 ./httpd-2.4.29/srclib/apr
+RUN mv apr-util-1.6.1 ./httpd-2.4.29/srclib/apr-util
+RUN mkdir pcre
+RUN cd pcre-8.41
+RUN ./configure --prefix=/home1/irteam/apps/pcre
+RUN cd /home1/irteam/apps/httpd-2.4.29
+RUN ./configure --prefix=/home1/irteam/apps/apache-2.4.29
+RUN make && make install
+RUN cd /home1/irteam/apps
 RUN ln -s apache-2.4.29 apache
 RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
 
