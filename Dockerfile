@@ -75,33 +75,71 @@ RUN cd /home1/irteam/apps/apache/bin && sudo chown root:irteam httpd\
 USER irteam
 RUN /home1/irteam/apps/apache/bin/apachectl start
 
-# django 설치
-#USER irteamsu
-#RUN sudo yum install -y xz xz-devel python-tools python3-tkinter
+#tomcat설치
+USER irteam
+RUN cd ~/apps\
+&& wget http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz\
+&& tar xvzf apache-tomcat-8.5.24.tar.gz\
+&& ln -s apache-tomcat-8.5.24 tomcat
 
-#USER irteam
-#RUN cd ~/apps\
-#&& wget 'https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz'\
-#&& tar xvzf Python-3.5.1.tgz\
-#&& cd Python-3.5.1\
-#&& ./configure --prefix=/home1/irteam/apps/python_3.5.1 --enable-shared --with-system-ffi --with-threads --with-zlib\
-#&& make\
-#&& make install\
-#&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.5m.so\
-#&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.so
+#Python 설치
+USER irteamsu
+RUN sudo yum install -y xz xz-devel python-tools python3-tkinter
 
-#RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
-#RUN source ~/.bashrc
+USER irteam
+RUN cd ~/apps\
+&& wget 'https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz'\
+&& tar xvzf Python-3.5.1.tgz\
+&& cd Python-3.5.1\
+&& ./configure --prefix=/home1/irteam/apps/python_3.5.1 --enable-shared --with-system-ffi --with-threads --with-zlib \
+&& make\
+&& make install\
+&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.5m.so\
+&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.so
 
-#USER irteam
-#RUN cd ~/apps\
-#&& wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
-#&& tar xvzf mod_wsgi-4.4.21.tar.gz\
-#&& cd mod_wsgi-4.4.21\
-#&& ./configure --with-apxs=/home1/irteam/apps/apache/bin/apxs\
-#&& make\
-#&& make install
-#RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
+RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+RUN source ~/.bashrc
+
+RUN cd /home1/irteam/apps/python_3.6.4/bin\
+&& ./python3.6 -m venv ~/apps/venv_3.6.4\
+&& cd /home1/irteam/apps/venv_3.6.4/bin\
+&& source activate
+
+#virtualenv & django 설치 
+RUN pip install virtualenv\
+&& virtualenv /home1/irteam/apps/py3.6.4_venv --python=/home1/irteam/apps/python_3.6.4/bin/python3 \
+&& exit
+
+#다시 로그인
+RUN cd /home1/irteam/apps/py3.6.4_venv/bin\
+&& source activate\
+&& pip install Django==1.11.8\
+&& django-admin --version \
+&& cd ~/apps\
+&& django-admin startproject devoops\
+&& cd devoops/\
+&& pip install mysql-python
+
+RUN echo' 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'localhost',
+        'PORT': '13306',
+    }
+}
+' >> devoops/settings.py
+
+USER irteam
+RUN cd ~/apps\
+&& wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
+&& tar xvzf mod_wsgi-4.4.21.tar.gz\
+&& cd mod_wsgi-4.4.21\
+&& ./configure --with-apxs=/home1/irteam/apps/apache/bin/apxs \
+&& make\
+&& make install
+RUN echo 'LoadModule wsgi_module modules/mod_wsgi.so' >> /home1/irteam/apps/apache/conf/httpd.conf
+
 
 EXPOSE 80
 EXPOSE 443
