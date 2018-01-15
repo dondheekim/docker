@@ -59,9 +59,9 @@ RUN cd ~/apps\
 && mv apr-util-1.6.1 ./httpd-2.4.29/srclib/apr-util\
 && mkdir pcre\
 && cd pcre-8.41\
-&& ./configure --prefix=/home1/irteam/apps/pcre\
+&& ./configure --prefix=/home1/irteam/apps/pcre \
 && cd /home1/irteam/apps/httpd-2.4.29\
-&& ./configure --prefix=/home1/irteam/apps/apache-2.4.29\
+&& ./configure --prefix=/home1/irteam/apps/apache-2.4.29 \
 && make && make install\
 && cd /home1/irteam/apps\
 && ln -s apache-2.4.29 apache
