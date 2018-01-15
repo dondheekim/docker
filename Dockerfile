@@ -64,7 +64,7 @@ RUN cd ~/apps && wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.ta
 && RUN make && make install\
 && RUN cd /home1/irteam/apps\
 && ln -s apache-2.4.29 apache
-RUNecho 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
+RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 # root로 로그인
 USER root
