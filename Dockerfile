@@ -41,7 +41,8 @@ RUN sudo yum install -y gcc expat-devel iptables
 # && sudo iptables -A INPUT -i docker0 -j ACCEPT
 
 USER irteam
-RUN cd ~/apps && wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz\
+RUN cd ~/apps\
+&& wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz\
 && wget http://mirror.apache-kr.org//apr/apr-1.6.3.tar.gz\
 && wget http://mirror.apache-kr.org//apr/apr-util-1.6.1.tar.gz\
 #&& wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz\
