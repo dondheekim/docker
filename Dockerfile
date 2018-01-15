@@ -42,7 +42,7 @@ RUN sudo yum install -y gcc expat-devel iptables
 
 USER irteam
 RUN cd ~/apps\
-RUN wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz\
+&& wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz
 #RUN wget http://mirror.apache-kr.org//apr/apr-1.6.3.tar.gz\
 #RUN wget http://mirror.apache-kr.org//apr/apr-util-1.6.1.tar.gz\
 #RUN wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz\
