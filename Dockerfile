@@ -45,35 +45,35 @@ RUN cd ~/apps\
 && wget http://apache.mirror.cdnetworks.com//httpd/httpd-2.4.29.tar.gz\
 && wget http://mirror.apache-kr.org//apr/apr-1.6.3.tar.gz\
 && wget http://mirror.apache-kr.org//apr/apr-util-1.6.1.tar.gz\
-#&& wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz\
-#&& wget http://downloads.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz\
-#&& tar xvzf httpd-2.4.29.tar.gz\
-#&& tar xvzf apr-1.6.3.tar.gz\
-#&& tar xvzf apr-util-1.6.1.tar.gz\
-#&& tar xvzf apr-iconv-1.2.2.tar.gz\
-#&& tar xvzf pcre-8.41.tar.gz\
-#&& ln -s apr-1.6.3 apr\
-#&& RUN ln -s apr-iconv-1.2.2 apr-iconv\
-#&& RUN ln -s apr-util-1.6.1 apr-util\
-#&& RUN mv apr-1.6.3 ./httpd-2.4.29/srclib/apr\
-#&& RUN mv apr-util-1.6.1 ./httpd-2.4.29/srclib/apr-util\
-#&& RUN mkdir pcre\
-#&& RUN cd pcre-8.41\
-#&& RUN ./configure --prefix=/home1/irteam/apps/pcre\
-#&& RUN cd /home1/irteam/apps/httpd-2.4.29\
-#&& RUN ./configure --prefix=/home1/irteam/apps/apache-2.4.29\
-#&& RUN make && make install\
-#&& RUN cd /home1/irteam/apps\
-#&& ln -s apache-2.4.29 apache
-#RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
+&& wget http://mirror.apache-kr.org//apr/apr-iconv-1.2.2.tar.gz\
+&& wget http://downloads.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz\
+&& tar xvzf httpd-2.4.29.tar.gz\
+&& tar xvzf apr-1.6.3.tar.gz\
+&& tar xvzf apr-util-1.6.1.tar.gz\
+&& tar xvzf apr-iconv-1.2.2.tar.gz\
+&& tar xvzf pcre-8.41.tar.gz\
+&& ln -s apr-1.6.3 apr\
+&& ln -s apr-iconv-1.2.2 apr-iconv\
+&& ln -s apr-util-1.6.1 apr-util\
+&& mv apr-1.6.3 ./httpd-2.4.29/srclib/apr\
+&& mv apr-util-1.6.1 ./httpd-2.4.29/srclib/apr-util\
+&& mkdir pcre\
+&& cd pcre-8.41\
+&& ./configure --prefix=/home1/irteam/apps/pcre\
+&& cd /home1/irteam/apps/httpd-2.4.29\
+&& ./configure --prefix=/home1/irteam/apps/apache-2.4.29\
+&& make && make install\
+&& cd /home1/irteam/apps\
+&& ln -s apache-2.4.29 apache
+RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 # root로 로그인
-#USER root
-#RUN cd /home1/irteam/apps/apache/bin && sudo chown root:irteam httpd\
-#&& sudo chmod 4755 httpd
+USER root
+RUN cd /home1/irteam/apps/apache/bin && sudo chown root:irteam httpd\
+&& sudo chmod 4755 httpd
 
-#USER irteam
-#RUN /home1/irteam/apps/apache/bin/apachectl start
+USER irteam
+RUN /home1/irteam/apps/apache/bin/apachectl start
 
 # django 설치
 #USER irteamsu
