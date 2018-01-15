@@ -65,15 +65,15 @@ RUN cd ~/apps\
 #&& RUN make && make install\
 #&& RUN cd /home1/irteam/apps\
 #&& ln -s apache-2.4.29 apache
-RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
+#RUN echo 'ServerName localhost' >> /home1/irteam/apps/apache/conf/httpd.conf
 
 # root로 로그인
-USER root
-RUN cd /home1/irteam/apps/apache/bin && sudo chown root:irteam httpd\
-&& sudo chmod 4755 httpd
+#USER root
+#RUN cd /home1/irteam/apps/apache/bin && sudo chown root:irteam httpd\
+#&& sudo chmod 4755 httpd
 
-USER irteam
-RUN /home1/irteam/apps/apache/bin/apachectl start
+#USER irteam
+#RUN /home1/irteam/apps/apache/bin/apachectl start
 
 # django 설치
 #USER irteamsu
