@@ -120,16 +120,6 @@ RUN cd /home1/irteam/apps/py3.6.4_venv/bin\
 && cd devoops/\
 && pip install mysql-python
 
-RUN echo' 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'PORT': '13306',
-    }
-}
-' >> devoops/settings.py
-
 USER irteam
 RUN cd ~/apps\
 && wget -O mod_wsgi-4.4.21.tar.gz https://github.com/GrahamDumpleton/mod_wsgi/archive/4.4.21.tar.gz\
