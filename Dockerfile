@@ -88,14 +88,13 @@ RUN sudo yum install -y xz xz-devel python-tools python3-tkinter
 
 USER irteam
 RUN cd ~/apps\
-&& wget 'https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz'\
-&& tar xvzf Python-3.5.1.tgz\
-&& cd Python-3.5.1\
-&& ./configure --prefix=/home1/irteam/apps/python_3.5.1 --enable-shared --with-system-ffi --with-threads --with-zlib \
-&& make\
+&& wget 'https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tgz'\
+&& tar xvzf Python-3.6.4.tgz\
+&& cd Python-3.6.4\
+&& ./configure --prefix=/home1/irteam/apps/python_3.6.4 --enable-shared --with-system-ffi --with-threads --with-zlib && make\
 && make install\
-&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.5m.so\
-&& chmod -v 755 /home1/irteam/apps/python_3.5.1/lib/libpython3.so
+&& chmod -v 755 /home1/irteam/apps/python_3.6.4/lib/libpython3.6m.so\
+&& chmod -v 755 /home1/irteam/apps/python_3.6.4/lib/libpython3.so
 
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.5.1/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 RUN source ~/.bashrc
