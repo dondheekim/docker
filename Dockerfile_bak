@@ -94,16 +94,20 @@ RUN cd ~/apps\
 && chmod -v 755 /home1/irteam/apps/python_3.6.4/lib/libpython3.so
 
 RUN echo 'export LD_LIBRARY_PATH=/home1/irteam/apps/python_3.6.4/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
-RUN source ~/.bashrc 
+RUN source ~/.bashrc
+# virtualenv 환경 구축
+#RUN ./virtualenv /home1/irteam/apps/voodoogirl --python=/home1/irteam/apps/python_3.5.1/bin/python3 \
+#&& cd /home1/irteam/apps/voodoogirl/bin\
+#&& source activate
 
-#USER irteam
+
 #RUN cd /home1/irteam/apps/python_3.6.4/bin\
 #&& ./python3.6 -m venv ~/apps/venv_3.6.4\
 #&& cd /home1/irteam/apps/venv_3.6.4/bin\
-#&& /bin/bash -c "source activate"
+#&& source activate
 
 #virtualenv & django 설치 
-#RUN pip install virtualenv
+#RUN pip install virtualenv\
 #&& virtualenv /home1/irteam/apps/py3.6.4_venv --python=/home1/irteam/apps/python_3.6.4/bin/python3 \
 #&& exit
 
